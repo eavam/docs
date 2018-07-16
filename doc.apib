@@ -1,0 +1,89 @@
+FORMAT: 1A
+HOST: http://172.16.100.54:8335
+
+# Delivery API
+
+API Доставки
+
+# Group Страны
+
+## Список стран
+
+### Получить список [GET /countries{?q,limit}]
+
++ Parameters
+    + q (string, optional) - Строка поиска
+    + limit (number, optional) - Ограничение по количеству запрашиваемых элементов
+        + Default: `100`
+
++ Response 200 (application/json)
+
+        [
+            {
+                "code": "string",
+                "name": "string"
+            }
+        ]
+
+# Group Курьеры
+
+## Список курьеров
+
+### Получить список [GET /couriers{?officeCode,limit,offset,active,sort,direction}]
+
++ Parameters
+    + officeCode: `101` (string, required) - Код офиса
+    
+    + limit (number, optional) - Ограничение по количеству запрашиваемых элементов
+        + Default: `100`
+    
+    + offset (number, optional) - Указание сколько элементов необходимо пропустить
+        + Default: `0`
+    
+    + active (boolean, optional) - Указывает стоит ли выбирать только активные элементы
+    
+    + sort (string, optional) - Поле для сортировки. Получает название поля по которому необходимо сортировать
+    
+    + direction (enum[string], optional)
+        Направление сортировки
+        + Members
+            + `asc`
+            + `desc`
+
++ Response 200 (application/json)
+
+    + Attributes (array[Courier])
+
+        + Body
+
+            [
+                {
+                    "id": 0,
+                    "courierCode": "string",
+                    "active": true,
+                    "name": "string",
+                    "schedule": "string",
+                    "macrozone": "string",
+                    "phone": [
+                        {
+                            "main": "+7453234453",
+                            "extra": "343"
+                        }
+                    ]
+                }
+            ]
+
+# Data Structures
+
+## Courier
++ id (number) - Идендификатор курьера
++ courierCode (string) - Код курьера
++ active (boolean) - Курьер активен 
++ name (string) - ФИО курьера
++ schedule (string) - График работы
++ macrozone (string) - Макрозона
++ phone (array[Phones]) - Телефоны
+
+## Phones
++ main (string) Основной телефоны
++ extra (string) Добавочный телефон
